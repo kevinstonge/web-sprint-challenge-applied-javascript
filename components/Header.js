@@ -17,6 +17,30 @@ const dateFormatter = (dateObject) => {
     return dateString
 }
 
+const getLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(getWeather);
+    }
+    else {
+        //default to LA lat/long
+        getWeather({"coords":{"latitude":34.05223,"longitude":-118.24368}})
+    }
+}
+
+const getWeather = (loc) => {
+    axios.get(`https://api.weather.gov/points/${loc.coords.latitude},${loc.coords.longitude}`).then(r=>
+        axios.get(r.data.properties.forecast).then(f=>{
+            const tempSpan = document.querySelector('.temp');
+            tempSpan.innerText = `${f.data.properties.periods[0].temperature}°F`;
+        }).catch(e=>{
+            document.querySelector('.temp').innerText = "error";
+        })
+    ).catch(err=>{
+        document.querySelector('.temp').innerText = "error";
+    });
+}
+
+
 const Header = () => {
     const headerDiv = document.createElement('div');
     headerDiv.classList.add('header');
@@ -31,14 +55,11 @@ const Header = () => {
         headerDiv.appendChild(titleH1);
         const tempSpan = document.createElement('span');
         tempSpan.classList.add('temp');
+        tempSpan.innerText = "click for local temperature";
+        tempSpan.style.cursor = "pointer";
+        tempSpan.addEventListener('click',getLocation);
         headerDiv.appendChild(tempSpan);
     return headerDiv;
 }
 document.querySelector('.header-container').appendChild(Header())
-axios.get("https://api.weather.gov/points/34.05223,-118.24368").then(r=>
-    axios.get(r.data.properties.forecast).then(f=>{
-        const tempSpan = document.querySelector('.temp');
-        tempSpan.innerText = `${f.data.properties.periods[0].temperature}°F`;
-    })
-);
 

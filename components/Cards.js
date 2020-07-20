@@ -42,14 +42,22 @@ const createCard = (dataObject) => {
     authorDiv.appendChild(authorSpan);
 
     cardDiv.addEventListener('click',()=>{console.log(dataObject.headline)})
-    
+
     return cardDiv;
 }
 
 axios.get("https://lambda-times-backend.herokuapp.com/articles").then(r=>{
     Object.keys(r.data.articles).forEach(cat=>{
+        const catContainer = document.createElement('span');
+        catContainer.classList.add('cat-container');
+        catContainer.id = `cat-${cat}`;
         r.data.articles[cat].forEach(article=>{
-            document.querySelector('.cards-container').appendChild(createCard(article))
+            catContainer.appendChild(createCard(article));
         })
+        document.querySelector('.cards-container').appendChild(catContainer)
     })
+}).catch(e=>{
+    const error = document.createElement('div');
+    error.innerText = "something went wrong";
+    document.querySelector('.cards-container').appendChild(error);
 })
