@@ -28,13 +28,23 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 
 1. What is the DOM?
 
+    The entire webpage is represented as a javascript object that can be manipulated just like any other javascript object. (Document Object Model)
+
 2. What is an event?
+
+    an event is something that happens, it can be a 'click', a 'doubleclick', the page 'load', the page gaining 'focus', etc. Each event is represented as a javascript object that can be manipulated like any other javascript object. So a click event will carry information in the event object about the mouse position, the target of the click, and many other key/value pairs that might be useful.
 
 3. What is an event listener?
 
+    an event listener is a method applied to elements on a page that will fire when the specified event occurs on that element.
+
 4. Why would we convert a NodeList into an Array?
 
+    NodeLists are array-like, but lack several methods that the array class offers (such as .map)
+
 5. What is a component?
+
+    a component is a group of elements on a webpage that can be used again and again, and that therefore make sense to code for once and simply call that code each time those elements are needed. For example, the html elements for every single Twitter tweet are the same, the 'tweet' box on their website is a component for which all of those elements were coded once, and are called upon every time a tweet is rendered on a screen.
 
 You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
 

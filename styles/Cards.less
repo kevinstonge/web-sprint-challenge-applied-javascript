@@ -1,8 +1,10 @@
 .cards-container {
-  .flex(space-evenly);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   .width-100();
   margin-top: 16px;
-  flex-wrap: wrap;
   @media(min-width: 1200px){
     width: 1200px;
   }
@@ -11,7 +13,7 @@
     .flex(space-between, none, column);
     background-color: @lambda-times-color-white;
     width: 380px;
-    margin-bottom: 16px;
+    margin: 16px;
     padding: 24px;
     .headline {
       font-size: 25px;
@@ -36,4 +38,12 @@
       }
     }
   }
+}
+.cat-container {
+  display: none;
+}
+.visible {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
